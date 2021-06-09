@@ -1,3 +1,25 @@
-#a {
-  justify-content: center !important;
+img {
+  position: absolute;
+  width: 100vw;
+}
+#headerSection {
+  height: 300px;
+  background-position: right 50% bottom 0%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  /* background-image: url("../../../assets/images/image-hero-mobile.jpg"); */
+}
+.mat-toolbar {
+  color: white;
+  /* width: 100vw; */
+  position: absolute !important;
+  background-color: transparent;
+}
+::ng-deep.mat-menu {
+}
+::ng-deep.mat-menu-panel {
+  max-width: none !important;
+  width: 100vh !important;
+  margin-inline: 20px;
+  box-shadow: 0px 0px 200px 0px rgb(0, 0, 0);
 }
