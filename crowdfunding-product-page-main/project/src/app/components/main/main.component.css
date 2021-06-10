@@ -38,8 +38,8 @@ picture {
 
 ::ng-deep.mat-menu-panel {
   max-width: none !important;
-  width: 100vh !important;
-  margin-inline: 20px;
+  width: 100vw !important;
+  margin-inline: 30px;
 }
 ::ng-deep.cdk-overlay-connected-position-bounding-box {
   background-color: rgba(0, 0, 0, 0.418) !important;
