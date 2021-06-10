@@ -1,48 +1,147 @@
-<!-- <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
-    <div class="container-fluid">
-      <a class="navbar-brand">crowdfund</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div id="a" class="navbar-nav d-flex ms-auto">
-          <a class="nav-link">About</a>
-          <a class="nav-link">Discover</a>
-          <a class="nav-link">Get Started</a>
-        </div>
-      </div>
-    </div>
-  </nav> -->
+<!-- ***************************** Menu ***************************** -->
+
 <div id="headerSection">
-  <img src="../../../assets/images/image-hero-mobile.jpg" alt="" />
   <mat-toolbar>
     <span>crowdfund</span>
     <button
+      (click)="changeMenuIcon()"
       class="ms-auto"
       mat-icon-button
       [matMenuTriggerFor]="menu"
-      (click)="openMenu()"
     >
-      <mat-icon>menu</mat-icon>
+      <mat-icon id="menuIcon">menu</mat-icon>
     </button>
   </mat-toolbar>
+
+  <mat-menu (closed)="restoreMenuIcon()" style="height: 500px" #menu="matMenu">
+    <button class="border-bottom" mat-menu-item>
+      <span>About</span>
+    </button>
+    <button class="border-bottom" mat-menu-item>
+      <span>Discover</span>
+    </button>
+    <button mat-menu-item>
+      <span>Get Started</span>
+    </button>
+  </mat-menu>
 </div>
-<mat-menu style="height: 500px" #menu="matMenu">
-  <button class="border-bottom" mat-menu-item>
-    <span>About</span>
-  </button>
-  <button class="border-bottom" mat-menu-item>
-    <span>Discover</span>
-  </button>
-  <button mat-menu-item>
-    <span>Get Started</span>
-  </button>
-</mat-menu>
+
+<!-- ***************************** backThisProject Div ***************************** -->
+<div
+  id="backThisProject"
+  class="section border rounded d-flex flex-column align-items-center"
+>
+  <svg width="56" height="56" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" fill-rule="evenodd">
+      <circle fill="#000" cx="28" cy="28" r="28" />
+      <g fill-rule="nonzero">
+        <path
+          d="M15.565 28.565a1.93 1.93 0 012.606-.113l.122.113 10.142 10.142a1.93 1.93 0 01-2.606 2.84l-.122-.112-10.142-10.142a1.93 1.93 0 010-2.728z"
+          fill="#444"
+        />
+        <path
+          d="M36.19 17.48c1.006-.996 2.706-.34 2.805 1.026l.005.126v10.736c0 .9-.737 1.629-1.646 1.629a1.64 1.64 0 01-1.642-1.507l-.005-.122v-6.805l-8.043 7.957c-1.006.996-2.707.34-2.806-1.026l-.004-.126v-6.805L16.81 30.52a1.66 1.66 0 01-2.224.095l-.105-.095a1.616 1.616 0 01-.096-2.2l.096-.103L25.336 17.48c1.006-.996 2.707-.34 2.806 1.026l.004.126v6.804l8.043-7.956z"
+          fill="#FFF"
+        />
+      </g>
+    </g>
+  </svg>
+  <div>
+    <h2>Mastercraft Bamboo Monitor Riser</h2>
+    <p>
+      A beautifully handcrafted monitor stand to reduce neck and eye strain.
+    </p>
+    <div class="d-flex justify-content-center">
+      <button (click)="openDialog()" class="greenButtons" mat-button>
+        Back this project
+      </button>
+      <button id="bookmarkIconButton" mat-mini-fab>
+        <mat-icon id="bookmarkIcon">bookmark</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- ***************************** statistics Div ***************************** -->
+<div
+  class="section mt-3 border rounded d-flex flex-column align-items-center"
+  id="statistics"
+>
+  <h3>$89,914</h3>
+  <p>of $100,000 backed</p>
+  <hr />
+  <h3>5,007</h3>
+  <p>total backers</p>
+  <hr />
+  <h3>56</h3>
+  <p>days left</p>
+  <mat-progress-bar mode="determinate"></mat-progress-bar>
+</div>
+<!-- ***************************** support Div ***************************** -->
+<div
+  class="section mt-3 pt-4 border rounded d-flex flex-column align-items-center"
+  id="support"
+>
+  <h3>About this project</h3>
+  <p>
+    The Mastercraft Bamboo Monitor Riser is a sturdy and stylish platform that
+    elevates your screen to a more comfortable viewing height. Placing your
+    monitor at eye level has the potential to improve your posture and make you
+    more comfortable while at work, helping you stay focused on the task at
+    hand.
+  </p>
+  <p>
+    Featuring artisan craftsmanship, the simplicity of design creates extra desk
+    space below your computer to allow notepads, pens, and USB sticks to be
+    stored under the stand.
+  </p>
+  <div class="reward border rounded d-flex flex-column p-4 mt-3">
+    <h5>Bamboo Stand</h5>
+    <p>Pledge $25 or more</p>
+    <p>
+      You get an ergonomic stand made of natural bamboo. You've helped us launch
+      our promotional campaign, and you’ll be added to a special Backer member
+      list.
+    </p>
+    <div class="d-flex">
+      <h4>101</h4>
+      <span>left</span>
+    </div>
+    <br />
+    <button (click)="openDialog()" class="greenButtons" mat-button>
+      Select Reward
+    </button>
+  </div>
+  <div class="reward border rounded d-flex flex-column p-4 mt-3">
+    <h5>Black Edition Stand</h5>
+    <p>Pledge $75 or more</p>
+    <p>
+      You get a Black Special Edition computer stand and a personal thank you.
+      You’ll be added to our Backer member list. Shipping is included.
+    </p>
+    <div class="d-flex">
+      <h4>64</h4>
+      <span>left</span>
+    </div>
+    <br />
+    <button (click)="openDialog()" class="greenButtons" mat-button>
+      Select Reward
+    </button>
+  </div>
+  <div class="reward border rounded d-flex flex-column p-4 mt-3">
+    <h5>Mahogany Special Edition</h5>
+    <p>Pledge $200 or more</p>
+    <p>
+      You get two Special Edition Mahogany stands, a Backer T-Shirt, and a
+      personal thank you. You’ll be added to our Backer member list. Shipping is
+      included.
+    </p>
+    <div class="d-flex">
+      <h4>0</h4>
+      <span>left</span>
+    </div>
+    <br />
+    <button (click)="openDialog()" class="greenButtons" mat-button>
+      Select Reward
+    </button>
+  </div>
+</div>
