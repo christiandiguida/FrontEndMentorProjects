@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MenuCloseReason } from '@angular/material/menu/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { RewardsDialogComponent } from '../rewards-dialog/rewards-dialog.component';
+import { Project } from 'src/app/classes/project';
 
 @Component({
   selector: 'app-main',
@@ -9,10 +10,17 @@ import { RewardsDialogComponent } from '../rewards-dialog/rewards-dialog.compone
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  @Output()
-  closed: EventEmitter<MenuCloseReason> = new EventEmitter();
+  static project: Project = {
+    total: 100000,
+    totalBacked: 89814,
+    backers: 5007,
+    daysLeft: 56,
+  };
   constructor(private dialog: MatDialog) {}
 
+  get getProject() {
+    return MainComponent.project;
+  }
   changeMenuIcon() {
     document.getElementById('menuIcon').innerHTML = 'close';
   }
