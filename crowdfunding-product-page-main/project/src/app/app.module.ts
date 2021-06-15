@@ -12,6 +12,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RewardsDialogComponent } from './components/rewards-dialog/rewards-dialog.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, MainComponent, RewardsDialogComponent],
@@ -25,6 +28,9 @@ import { RewardsDialogComponent } from './components/rewards-dialog/rewards-dial
     MatButtonModule,
     MatDialogModule,
     MatProgressBarModule,
+    MatRadioModule,
+    MatInputModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

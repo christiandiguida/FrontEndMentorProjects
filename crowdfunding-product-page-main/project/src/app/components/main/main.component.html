@@ -66,15 +66,18 @@
   class="section mt-3 border rounded d-flex flex-column align-items-center"
   id="statistics"
 >
-  <h3>$89,914</h3>
-  <p>of $100,000 backed</p>
+  <h3>{{ getProject.totalBacked | currency: "USD":"symbol":"1.0-0" }}</h3>
+  <p>of {{ getProject.total | currency: "USD":"symbol":"1.0-0" }}</p>
   <hr />
-  <h3>5,007</h3>
+  <h3>{{ getProject.backers }}</h3>
   <p>total backers</p>
   <hr />
-  <h3>56</h3>
+  <h3>{{ getProject.daysLeft }}</h3>
   <p>days left</p>
-  <mat-progress-bar mode="determinate"></mat-progress-bar>
+  <mat-progress-bar
+    value="{{ getProject.totalBacked / 1000 }}"
+    mode="determinate"
+  ></mat-progress-bar>
 </div>
 <!-- ***************************** support Div ***************************** -->
 <div
@@ -94,53 +97,19 @@
     space below your computer to allow notepads, pens, and USB sticks to be
     stored under the stand.
   </p>
-  <div class="reward border rounded d-flex flex-column p-4 mt-3">
-    <h5>Bamboo Stand</h5>
-    <p>Pledge $25 or more</p>
-    <p>
-      You get an ergonomic stand made of natural bamboo. You've helped us launch
-      our promotional campaign, and you’ll be added to a special Backer member
-      list.
-    </p>
+  <div
+    *ngFor="let reward of rewards"
+    class="reward border rounded d-flex flex-column p-4 mt-3"
+  >
+    <h5>{{ reward.title }}</h5>
+    <p *ngIf="reward.quantity !== null">Pledge ${{ reward.pledge }} or more</p>
+    <p>{{ reward.description }}</p>
     <div class="d-flex">
-      <h4>101</h4>
-      <span>left</span>
+      <h4 *ngIf="reward.quantity !== null">{{ reward.quantity }}</h4>
+      <span *ngIf="reward.quantity !== null">left</span>
     </div>
     <br />
-    <button (click)="openDialog()" class="greenButtons" mat-button>
-      Select Reward
-    </button>
-  </div>
-  <div class="reward border rounded d-flex flex-column p-4 mt-3">
-    <h5>Black Edition Stand</h5>
-    <p>Pledge $75 or more</p>
-    <p>
-      You get a Black Special Edition computer stand and a personal thank you.
-      You’ll be added to our Backer member list. Shipping is included.
-    </p>
-    <div class="d-flex">
-      <h4>64</h4>
-      <span>left</span>
-    </div>
-    <br />
-    <button (click)="openDialog()" class="greenButtons" mat-button>
-      Select Reward
-    </button>
-  </div>
-  <div class="reward border rounded d-flex flex-column p-4 mt-3">
-    <h5>Mahogany Special Edition</h5>
-    <p>Pledge $200 or more</p>
-    <p>
-      You get two Special Edition Mahogany stands, a Backer T-Shirt, and a
-      personal thank you. You’ll be added to our Backer member list. Shipping is
-      included.
-    </p>
-    <div class="d-flex">
-      <h4>0</h4>
-      <span>left</span>
-    </div>
-    <br />
-    <button (click)="openDialog()" class="greenButtons" mat-button>
+    <button (click)="openDialog(reward)" class="greenButtons" mat-button>
       Select Reward
     </button>
   </div>
