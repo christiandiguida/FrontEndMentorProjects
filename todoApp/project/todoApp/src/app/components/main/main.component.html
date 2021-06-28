@@ -1,0 +1,79 @@
+<div class="background">
+  <img src="" alt="" />
+</div>
+<div class="main container">
+  <div class="d-flex justify-content-between" id="title">
+    <h1 class="i">T O D O</h1>
+    <mat-icon>nightlight_round</mat-icon>
+  </div>
+  <li class="list-group-item d-flex rounded task">
+    <div
+      class="
+        d-flex
+        justify-content-center
+        align-items-center
+        taskCheckboxContainer
+      "
+    >
+      <div
+        class="d-flex justify-content-center align-items-center taskCheckbox"
+      >
+        <mat-icon *ngIf="checked">done</mat-icon>
+      </div>
+    </div>
+    <input
+      [(ngModel)]="newTask.description"
+      (keyup.enter)="createTask()"
+      class="form-control textInput"
+      type="text"
+      placeholder="Create a new todo..."
+    />
+  </li>
+  <div id="todoList" class="d-flex">
+    <ul id="taskList" class="list-group">
+      <li
+        (mouseover)="mouseOver(task.position)"
+        (mouseout)="mouseOver(task.position)"
+        *ngFor="let task of tasks"
+        class="list-group-item d-flex justify-content-center rounded task"
+      >
+        <div
+          class="
+            d-flex
+            justify-content-center
+            align-items-center
+            taskCheckboxContainer
+          "
+        >
+          <div
+            (click)="check(task)"
+            class="
+              d-flex
+              justify-content-center
+              align-items-center
+              taskCheckbox
+            "
+          >
+            <mat-icon></mat-icon>
+          </div>
+        </div>
+        <p class="taskDescription form-control">{{ task.description }}</p>
+        <div (click)="deleteTask(task)" class="delete">
+          <mat-icon class="">close</mat-icon>
+        </div>
+      </li>
+      <li
+        *ngIf="tasks.length > 0"
+        class="list-group-item d-flex justify-content-between"
+      >
+        <span>{{ tasks.length }} items left</span>
+        <span>Clear Completed</span>
+      </li>
+    </ul>
+  </div>
+  <div class="list-group-item d-flex justify-content-around controller mt-4">
+    <span (click)="showAll()">All</span>
+    <span (click)="showActive()">Active</span
+    ><span (click)="showCompleted()">Completed</span>
+  </div>
+</div>

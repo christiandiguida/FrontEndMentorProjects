@@ -1,0 +1,76 @@
+/* <-----------------BACKGROUND-----------------------> */
+.background {
+  position: absolute;
+  top: 0px;
+  width: 100vw;
+  height: 25vh;
+  z-index: -1;
+  background-image: url("/assets/images/bg-mobile-light.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.main {
+  width: 90vw;
+}
+/* <-----------------TITLE-----------------------> */
+#title {
+  margin-top: 40px;
+  color: hsl(0, 0%, 98%);
+}
+/* <-----------------NEW_TODO-----------------------> */
+
+.task .textInput {
+  background-color: transparent;
+  border: none;
+}
+.task .textInput:focus {
+  box-shadow: none;
+}
+.taskCheckboxContainer {
+  width: 20%;
+  cursor: pointer;
+}
+.taskCheckboxContainer div {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 1px solid #d2d3db;
+
+  /* background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)); */
+}
+.taskCheckbox mat-icon {
+  color: hsl(0, 0%, 98%);
+}
+
+/* <-----------------TODOLIST-----------------------> */
+
+#taskList {
+  margin-top: 40px;
+  width: 100vw;
+}
+.taskDescription {
+  border: none;
+}
+.delete {
+  margin-top: 5px;
+  margin-right: -20px;
+  color: transparent;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+.delete mat-icon {
+  font-size: 30px;
+}
+
+.controller span {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 992px) {
+  .delete {
+    margin-top: 5px;
+    margin-right: 0;
+    color: black;
+    transition-duration: 0;
+  }
+}
