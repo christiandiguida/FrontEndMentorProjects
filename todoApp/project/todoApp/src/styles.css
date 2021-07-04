@@ -6,6 +6,12 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
+  touch-action: manipulation;
+}
+h1 {
+  font-weight: 700;
+}
+* {
   font-size: 18px;
 }

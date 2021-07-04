@@ -8,25 +8,33 @@ import { RestService } from '../../services/rest.service';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit, AfterViewChecked {
-  activeTasks: Task[] = [];
-  completedTasks: Task[] = [];
   tasks: Task[] = [];
   newTask: Task = new Task();
   checked: boolean = false;
   taskList: string = 'all';
+  globalPosition: number = 0;
+  globalTheme: string = 'light';
   constructor(private restService: RestService) {}
 
+  toggleTheme() {
+    let toggler: HTMLElement = document.getElementById('themeToggle');
+    toggler.innerHTML =
+      toggler.innerHTML === 'brightness_5'
+        ? 'nightlight_round'
+        : 'brightness_5';
+    this.changeTheme();
+  }
+  changeTheme() {
+    let body = document.getElementsByTagName('body')[0];
+    body.style.background = 'hsl(235, 21%, 11%)';
+  }
+
   createTask() {
-    if (
-      this.newTask.description !== undefined &&
-      this.newTask.description.length < 120
-    ) {
+    if (this.newTask.description !== undefined) {
       this.tasks.push(this.newTask);
-      this.newTask.position = this.tasks.length;
       this.newTask.state = 'active';
       this.restService.createTask(this.newTask).subscribe((task: any) => {
         this.newTask.id = task.name;
-        this.ngOnInit();
         this.restService.updateTask(this.newTask).subscribe(() => {
           this.ngOnInit();
         });
@@ -34,91 +42,53 @@ export class MainComponent implements OnInit, AfterViewChecked {
       });
     }
   }
-  mouseOver(position: number) {
-    let task: HTMLElement = <HTMLElement>(
-      document.querySelectorAll('.task')[position].lastChild
+  mouseOver(task: Task) {
+    let deleteButton: HTMLElement = <HTMLElement>(
+      document.querySelectorAll('.task')[this.tasks.indexOf(task)].lastChild
     );
-    if (task.style.color !== 'black') {
-      task.style.color = 'black';
-      task.style.transform = 'translateX(-20px)';
+    if (deleteButton.style.color !== 'black') {
+      deleteButton.style.color = 'black';
+      deleteButton.style.transform = 'translateX(-20px)';
     } else {
-      task.style.color = 'transparent';
-      task.style.transform = 'translateX(0px)';
+      deleteButton.style.color = 'transparent';
+      deleteButton.style.transform = 'translateX(0px)';
     }
   }
   deleteTask(task: Task) {
     this.restService.deleteTask(task).subscribe(() => this.ngOnInit());
   }
-  check(task: Task) {
-    this.checked = !this.checked;
-    let checkContainer: HTMLElement = <HTMLElement>(
-      document.querySelectorAll('.taskCheckbox')[task.position]
-    );
-    if (checkContainer.style.background === 'none') {
-      checkContainer.style.background =
-        'linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)';
-      checkContainer.firstChild.textContent = 'done';
-      task.state = 'completed';
-      this.restService.updateTask(task).subscribe(() => this.showActive());
-    } else {
-      checkContainer.style.background = 'none';
-      task.state = 'active';
-      this.restService.updateTask(task).subscribe();
-    }
-    this.ngOnInit();
-  }
-  showActive() {
-    this.taskList = 'active';
-    console.log(this.activeTasks);
-    this.tasks = this.activeTasks;
-    this.activeState(1);
-    this.ngOnInit();
-  }
-  activeState(position: number) {
-    document.querySelectorAll('.controller span').forEach((s: HTMLElement) => {
-      if ((s.style.color = 'red')) {
-        s.style.color = 'black';
+  deleteCompleted() {
+    this.tasks.forEach((t) => {
+      if (t.state === 'completed') {
+        this.restService.deleteTask(t).subscribe(() => this.ngOnInit());
       }
     });
-    let span: HTMLElement = <HTMLElement>(
-      document.querySelectorAll('.controller span')[position]
+  }
+  check(task: Task) {
+    let checkContainer: HTMLElement = <HTMLElement>(
+      document.querySelectorAll('.doneCheckbox:checked')[
+        this.tasks.indexOf(task)
+      ]
     );
-    span.style.color = 'red';
+    let taskDescription: HTMLElement = <HTMLElement>(
+      document.querySelectorAll('.task p')[this.tasks.indexOf(task)]
+    );
+    if (checkContainer) {
+      task.state = 'completed';
+      this.restService.updateTask(task).subscribe(() => {
+        taskDescription.classList.add('completed');
+      });
+    } else {
+      task.state = 'active';
+      this.restService.updateTask(task).subscribe(() => {
+        taskDescription.classList.remove('completed');
+      });
+    }
   }
-  showCompleted() {
-    this.taskList = 'completed';
-    console.log(this.completedTasks);
-    this.tasks = this.completedTasks;
-    this.activeState(2);
-    this.ngOnInit();
-  }
-  showAll() {
-    this.ngOnInit();
-    this.activeState(0);
-  }
+
   ngOnInit(): void {
     this.restService.getTasks().subscribe((tasks) => {
-      this.activeTasks = [];
-      this.completedTasks = [];
-      this.tasks = [];
-      tasks.forEach((t) => {
-        t.state === 'active'
-          ? this.activeTasks.push(t)
-          : this.completedTasks.push(t);
-      });
-      switch (this.taskList) {
-        case 'active':
-          this.tasks = this.activeTasks;
-          break;
-        case 'all':
-          this.tasks = tasks;
-          break;
-        case 'completed':
-          this.tasks = this.completedTasks;
-          break;
-        default:
-          break;
-      }
+      this.showTasks(this.globalPosition);
     });
   }
 
@@ -129,14 +99,36 @@ export class MainComponent implements OnInit, AfterViewChecked {
   checkCompleted(): void {
     this.tasks.forEach((t) => {
       let checkContainer: HTMLElement = <HTMLElement>(
-        document.querySelectorAll('.taskCheckbox')[t.position]
+        document.querySelectorAll('.doneCheckbox')[this.tasks.indexOf(t)]
+      );
+      let taskDescription: HTMLElement = <HTMLElement>(
+        document.querySelectorAll('.task p')[this.tasks.indexOf(t)]
       );
       if (t.state === 'completed') {
-        checkContainer.style.background =
-          'linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)';
-        checkContainer.firstChild.textContent = 'done';
-      } else {
-        checkContainer.style.background = 'none';
+        checkContainer.setAttribute('checked', 'true');
+        taskDescription.classList.add('completed');
+      }
+    });
+  }
+  showTasks(position: number) {
+    this.globalPosition = position;
+    let radioListInput: HTMLElement = <HTMLElement>(
+      document.querySelectorAll('.radioListInput')[position]
+    );
+    radioListInput.setAttribute('checked', 'true');
+    this.restService.getTasks().subscribe((tasks) => {
+      switch (position) {
+        case 0:
+          this.tasks = tasks;
+          break;
+        case 1:
+          this.tasks = tasks.filter((f) => f.state === 'active');
+          break;
+        case 2:
+          this.tasks = tasks.filter((f) => f.state === 'completed');
+          break;
+        default:
+          break;
       }
     });
   }

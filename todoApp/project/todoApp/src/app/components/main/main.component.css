@@ -3,7 +3,7 @@
   position: absolute;
   top: 0px;
   width: 100vw;
-  height: 25vh;
+  height: 30vh;
   z-index: -1;
   background-image: url("/assets/images/bg-mobile-light.jpg");
   background-repeat: no-repeat;
@@ -17,29 +17,18 @@
   margin-top: 40px;
   color: hsl(0, 0%, 98%);
 }
-/* <-----------------NEW_TODO-----------------------> */
-
-.task .textInput {
-  background-color: transparent;
-  border: none;
-}
-.task .textInput:focus {
-  box-shadow: none;
-}
-.taskCheckboxContainer {
-  width: 20%;
+#themeToggle {
   cursor: pointer;
 }
-.taskCheckboxContainer div {
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  border: 1px solid #d2d3db;
+/* <-----------------NEW_TODO-----------------------> */
 
-  /* background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)); */
+.newTask .textInput {
+  background-color: transparent;
+  border: none;
+  color: hsl(235, 19%, 35%);
 }
-.taskCheckbox mat-icon {
-  color: hsl(0, 0%, 98%);
+.newTask .textInput:focus {
+  box-shadow: none;
 }
 
 /* <-----------------TODOLIST-----------------------> */
@@ -50,27 +39,123 @@
 }
 .taskDescription {
   border: none;
+  color: hsl(235, 19%, 35%);
 }
+
 .delete {
   margin-top: 5px;
-  margin-right: -20px;
-  color: transparent;
-  transition-duration: 0.3s;
+  margin-right: 0;
+  color: black;
+  transition-duration: 0;
   cursor: pointer;
 }
 .delete mat-icon {
   font-size: 30px;
 }
 
-.controller span {
-  cursor: pointer;
+.checkContainer {
+  width: 15%;
+}
+.doneCheckbox {
+  font-size: 30px;
+  border-radius: 50%;
+  margin: 0;
+}
+.doneCheckbox:checked {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e"),
+    linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
 }
 
-@media screen and (max-width: 992px) {
+.radioList input {
+  display: none;
+}
+.radioList label {
+  cursor: pointer;
+}
+.radioList input:checked + label {
+  color: hsl(220, 98%, 61%);
+}
+.lastTask {
+  color: hsl(230, 3%, 58%);
+}
+.lastTask button {
+  color: hsl(230, 3%, 58%);
+  padding: 0;
+}
+
+.completed {
+  color: gray;
+  text-decoration: line-through;
+}
+.controller {
+  color: hsl(240, 2%, 38%);
+  font-weight: 700;
+}
+@media screen and (min-width: 800px) {
+  .background {
+    background: url("/assets/images/bg-desktop-light.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 35vh;
+  }
+  .background.darkTheme {
+    background: url("/assets/images/bg-desktop-dark.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 35vh;
+  }
+  .main {
+    width: 60vw;
+  }
   .delete {
     margin-top: 5px;
-    margin-right: 0;
-    color: black;
-    transition-duration: 0;
+    margin-right: -20px;
+    color: transparent;
+    transition-duration: 0.3s;
   }
+  /* mat-icon.darkTheme {
+    color: transparent !important;
+  } */
+  /* mat-icon.darkTheme {
+    color: hsl(230, 3%, 58%);
+  } */
+}
+@media screen and (min-width: 1400px) {
+  .delete {
+    margin-top: 5px;
+    margin-right: -20px;
+    color: transparent;
+    transition-duration: 0.3s;
+  }
+  .background {
+    height: 40vh;
+  }
+}
+/* body.darkTheme {
+  background-color: hsl(235, 21%, 11%);
+} */
+
+.background.darkTheme {
+  background-image: url("/assets/images/bg-mobile-dark.jpg");
+}
+li.darkTheme {
+  background-color: hsl(235, 24%, 19%);
+}
+li.darkTheme p {
+  color: hsl(234, 39%, 85%);
+}
+
+input.darkTheme {
+  background-color: hsl(235, 24%, 19%);
+  border-color: hsl(234, 39%, 85%);
+}
+.textInput.darkTheme {
+  color: hsl(234, 39%, 85%) !important;
+}
+div.darkTheme {
+  background-color: hsl(235, 24%, 19%);
+  color: hsl(234, 11%, 52%);
+}
+div.darkTheme label {
+  color: hsl(240, 2%, 58%);
 }

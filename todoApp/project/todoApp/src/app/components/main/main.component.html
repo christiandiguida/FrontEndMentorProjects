@@ -1,29 +1,16 @@
-<div class="background">
-  <img src="" alt="" />
-</div>
+<div class="background"></div>
 <div class="main container">
   <div class="d-flex justify-content-between" id="title">
     <h1 class="i">T O D O</h1>
-    <mat-icon>nightlight_round</mat-icon>
-  </div>
-  <li class="list-group-item d-flex rounded task">
-    <div
-      class="
-        d-flex
-        justify-content-center
-        align-items-center
-        taskCheckboxContainer
-      "
+    <mat-icon (click)="toggleTheme()" id="themeToggle"
+      >nightlight_round</mat-icon
     >
-      <div
-        class="d-flex justify-content-center align-items-center taskCheckbox"
-      >
-        <mat-icon *ngIf="checked">done</mat-icon>
-      </div>
-    </div>
+  </div>
+  <li class="list-group-item d-flex rounded newTask">
     <input
       [(ngModel)]="newTask.description"
       (keyup.enter)="createTask()"
+      maxlength="30"
       class="form-control textInput"
       type="text"
       placeholder="Create a new todo..."
@@ -32,48 +19,92 @@
   <div id="todoList" class="d-flex">
     <ul id="taskList" class="list-group">
       <li
-        (mouseover)="mouseOver(task.position)"
-        (mouseout)="mouseOver(task.position)"
+        (mouseover)="mouseOver(task)"
+        (mouseout)="mouseOver(task)"
         *ngFor="let task of tasks"
-        class="list-group-item d-flex justify-content-center rounded task"
+        class="list-group-item d-flex rounded task"
       >
         <div
           class="
+            checkContainer
             d-flex
             justify-content-center
             align-items-center
-            taskCheckboxContainer
           "
         >
-          <div
+          <input
             (click)="check(task)"
-            class="
-              d-flex
-              justify-content-center
-              align-items-center
-              taskCheckbox
-            "
-          >
-            <mat-icon></mat-icon>
-          </div>
+            class="form-check-input doneCheckbox"
+            type="checkbox"
+          />
         </div>
-        <p class="taskDescription form-control">{{ task.description }}</p>
+        <p
+          style="margin-bottom: -10px; background-color: transparent"
+          class="taskDescription form-control"
+        >
+          {{ task.description }}
+        </p>
         <div (click)="deleteTask(task)" class="delete">
           <mat-icon class="">close</mat-icon>
         </div>
       </li>
       <li
         *ngIf="tasks.length > 0"
-        class="list-group-item d-flex justify-content-between"
+        class="
+          list-group-item
+          d-flex
+          align-items-center
+          justify-content-between
+          lastTask
+        "
       >
         <span>{{ tasks.length }} items left</span>
-        <span>Clear Completed</span>
+        <button class="btn" (click)="deleteCompleted()">Clear Completed</button>
       </li>
     </ul>
   </div>
-  <div class="list-group-item d-flex justify-content-around controller mt-4">
-    <span (click)="showAll()">All</span>
-    <span (click)="showActive()">Active</span
-    ><span (click)="showCompleted()">Completed</span>
+  <div
+    class="
+      list-group-item
+      d-flex
+      justify-content-around
+      controller
+      mt-4
+      rounded
+    "
+  >
+    <div class="radioList">
+      <input
+        class="form-check-input radioListInput"
+        type="radio"
+        name="tasks"
+        id="all"
+      />
+      <label (click)="showTasks(0)" for="all" class="form-check-label"
+        >All</label
+      >
+    </div>
+    <div class="radioList">
+      <input
+        class="form-check-input radioListInput"
+        type="radio"
+        name="tasks"
+        id="active"
+      />
+      <label (click)="showTasks(1)" for="active" class="form-check-label"
+        >Active</label
+      >
+    </div>
+    <div class="radioList">
+      <input
+        class="form-check-input radioListInput"
+        type="radio"
+        name="tasks"
+        id="completed"
+      />
+      <label (click)="showTasks(2)" for="completed" class="form-check-label"
+        >Completed</label
+      >
+    </div>
   </div>
 </div>
